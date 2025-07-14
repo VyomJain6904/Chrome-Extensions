@@ -1,0 +1,11 @@
+{
+	"manifest_version": 3,
+	"name": "Seconds Calculator",
+	"version": "1.0",
+	"author": "Vyom Jain",
+	"description": "By Vyom Jain — Shows time lived on Earth in seconds.",
+	"homepage_url": "https://vyom.xyz.vercel.app",
+	"chrome_url_overrides": {
+		"newtab": "index.html"
+	}
+}

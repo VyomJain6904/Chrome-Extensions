@@ -1,0 +1,27 @@
+{
+	"manifest_version": 3,
+	"name": "Video Downloader",
+	"version": "1.0",
+	"description": "Download videos in your preferred quality.",
+	"permissions": ["downloads", "activeTab", "scripting", "webRequest"],
+	"host_permissions": ["*://*.youtube.com/*", "*://*.instagram.com/*"],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": {
+			"48": "icons/icon48.png"
+		}
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["content.js"]
+		}
+	],
+	"icons": {
+		"48": "icons/icon48.png"
+	},
+	"resources": ["ffmpeg.min.js"]
+}
