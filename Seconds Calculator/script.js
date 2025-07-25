@@ -94,6 +94,18 @@ const quotes = [
     },
 ];
 
+function formatIndianNumber(num)
+{
+    const str = num.toString();
+    const lastThree = str.slice(-3);
+    const otherNumbers = str.slice(0, -3);
+
+    if (!otherNumbers) return lastThree;
+
+    const formattedOther = otherNumbers.replace(/(\d)(?=(\d{2})+(?!\d))/g, "$1,");
+    return formattedOther + "," + lastThree;
+}
+
 function updateSecondsLived()
 {
     const birthDate = new Date(BIRTHDATE);
@@ -101,10 +113,26 @@ function updateSecondsLived()
     const diffTime = Math.abs(now - birthDate);
     const diffSeconds = Math.floor(diffTime / 1000);
 
-    const formatted = diffSeconds.toLocaleString().replace(/,/g, ":");
+    const formatted = formatIndianNumber(diffSeconds);
 
     document.getElementById("secondsDisplay").textContent = formatted;
 }
+
+function getDaysLived(birthDateStr)
+{
+    const birthDate = new Date(birthDateStr);
+    const now = new Date();
+    const diffTime = now - birthDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+}
+
+function updateDaysLived()
+{
+    const daysLived = getDaysLived(BIRTHDATE);
+    document.getElementById("daysDisplay").textContent = daysLived.toLocaleString() + " days";
+}
+
 
 function updateDate()
 {
@@ -118,38 +146,26 @@ function updateDate()
     document.getElementById("dateDisplay").textContent = dateString;
 }
 
-function getGreeting()
-{
-    const hour = new Date().getHours();
-    if (hour < 12) return "Good morning!";
-    if (hour < 17) return "Good afternoon!";
-    if (hour < 21) return "Good evening!";
-    return "Good night!";
-}
-
 function getRandomQuote()
 {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     return quotes[randomIndex];
 }
 
-function init()
+function main()
 {
-    // Update seconds lived
     updateSecondsLived();
     setInterval(updateSecondsLived, 1000); // Update every second
 
-    // Update date
+    updateDaysLived(); // Update days lived
+    setInterval(updateDaysLived, 86400000); // Update daily
+
     updateDate();
     setInterval(updateDate, 86400000); // Update every day
 
-    // Set greeting
-    document.getElementById("greeting").textContent = getGreeting();
-
-    // Set random quote
     const randomQuote = getRandomQuote();
     document.getElementById("quote").textContent = `"${randomQuote.text}"`;
     document.getElementById("quoteAuthor").textContent = `— ${randomQuote.author}`;
 }
 
-init();
+main();

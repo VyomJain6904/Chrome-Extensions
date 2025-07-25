@@ -57,6 +57,12 @@
 				text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
 				animation: pulse 2s ease-in-out infinite;
 			}
+			.days-display {
+				font-size: 4.8rem;
+				font-weight: 300;
+				margin-bottom: 10px;
+				text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+			}
 
 			@keyframes pulse {
 				0%,
@@ -77,11 +83,13 @@
 				letter-spacing: 1px;
 			}
 
-			.greeting {
-				font-size: 2.5rem;
-				font-weight: 400;
-				margin-bottom: 30px;
-				text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+			.days-label {
+				font-size: 1.2rem;
+				opacity: 0.9;
+				margin-bottom: 20px;
+				font-weight: 300;
+				text-transform: uppercase;
+				letter-spacing: 1px;
 			}
 
 			.quote-container {
@@ -119,7 +127,7 @@
 			}
 
 			.date-display {
-				font-size: 2.2rem;
+				font-size: 3.2rem;
 				opacity: 0.9;
 				margin-bottom: 10px;
 				font-weight: 300;
@@ -127,11 +135,15 @@
 
 			@media (max-width: 768px) {
 				.seconds-display {
-					font-size: 15.5rem;
+					font-size: 3rem;
 				}
 
-				.greeting {
+				.days-display {
 					font-size: 1.8rem;
+				}
+
+				.date-display {
+					font-size: 1.5rem;
 				}
 
 				.quote {
@@ -139,7 +151,10 @@
 				}
 
 				.container {
-					padding: 20px;
+					width: 100%;
+					max-width: 95vw;
+					padding: 10px;
+					margin: 0 auto;
 				}
 			}
 		</style>
@@ -149,7 +164,9 @@
 			<div class="date-display" id="dateDisplay"></div>
 			<div class="seconds-display" id="secondsDisplay">0</div>
 			<div class="seconds-label">Seconds Lived on Earth</div>
-			<div class="greeting" id="greeting">Good morning!</div>
+			<br />
+			<div class="days-display" id="daysDisplay">0</div>
+			<div class="days-label">days Lived on Earth</div>
 			<div class="quote-container">
 				<div class="quote" id="quote"></div>
 				<div class="quote-author" id="quoteAuthor"></div>
