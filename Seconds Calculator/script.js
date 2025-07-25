@@ -130,7 +130,7 @@ function getDaysLived(birthDateStr)
 function updateDaysLived()
 {
     const daysLived = getDaysLived(BIRTHDATE);
-    document.getElementById("daysDisplay").textContent = daysLived.toLocaleString() + " days";
+    document.getElementById("daysDisplay").textContent = daysLived.toLocaleString()
 }
 
 
