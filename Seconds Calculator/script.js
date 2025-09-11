@@ -33,7 +33,10 @@ const quotes = [
         text: "Your time is limited, don't waste it living someone else's life.",
         author: "Steve Jobs",
     },
-    { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+    {
+        text: "Be yourself; everyone else is already taken.",
+        author: "Oscar Wilde",
+    },
     {
         text: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
         author: "Albert Einstein",
@@ -94,32 +97,31 @@ const quotes = [
     },
 ];
 
-function formatIndianNumber(num)
-{
+function formatIndianNumber(num) {
     const str = num.toString();
     const lastThree = str.slice(-3);
     const otherNumbers = str.slice(0, -3);
 
     if (!otherNumbers) return lastThree;
 
-    const formattedOther = otherNumbers.replace(/(\d)(?=(\d{2})+(?!\d))/g, "$1,");
+    const formattedOther = otherNumbers.replace(
+        /(\d)(?=(\d{2})+(?!\d))/g,
+        "$1,"
+    );
     return formattedOther + "," + lastThree;
 }
 
-function updateSecondsLived()
-{
+function updateSecondsLived() {
     const birthDate = new Date(BIRTHDATE);
     const now = new Date();
     const diffTime = Math.abs(now - birthDate);
     const diffSeconds = Math.floor(diffTime / 1000);
 
     const formatted = formatIndianNumber(diffSeconds);
-
     document.getElementById("secondsDisplay").textContent = formatted;
 }
 
-function getDaysLived(birthDateStr)
-{
+function getDaysLived(birthDateStr) {
     const birthDate = new Date(birthDateStr);
     const now = new Date();
     const diffTime = now - birthDate;
@@ -127,15 +129,13 @@ function getDaysLived(birthDateStr)
     return diffDays;
 }
 
-function updateDaysLived()
-{
+function updateDaysLived() {
     const daysLived = getDaysLived(BIRTHDATE);
-    document.getElementById("daysDisplay").textContent = daysLived.toLocaleString()
+    document.getElementById("daysDisplay").textContent =
+        daysLived.toLocaleString();
 }
 
-
-function updateDate()
-{
+function updateDate() {
     const now = new Date();
     const dateString = now.toLocaleDateString("en-US", {
         weekday: "long",
@@ -146,22 +146,48 @@ function updateDate()
     document.getElementById("dateDisplay").textContent = dateString;
 }
 
-function getRandomQuote()
-{
+function getRandomQuote() {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     return quotes[randomIndex];
 }
 
-function main()
-{
-    updateSecondsLived();
-    setInterval(updateSecondsLived, 1000); // Update every second
+function createInvisibleGrid() {
+    const gridOverlay = document.getElementById('gridOverlay');
+    const cellSize = window.innerWidth <= 768 ? 25 : 30;
+    const cols = Math.ceil(window.innerWidth / cellSize);
+    const rows = Math.ceil(window.innerHeight / cellSize);
 
-    updateDaysLived(); // Update days lived
-    setInterval(updateDaysLived, 86400000); // Update daily
+    // Clear existing grid
+    gridOverlay.innerHTML = '';
+
+    // Create invisible hover areas
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            const cell = document.createElement('div');
+            cell.className = 'invisible-grid';
+            cell.style.left = `${col * cellSize}px`;
+            cell.style.top = `${row * cellSize}px`;
+
+            gridOverlay.appendChild(cell);
+        }
+    }
+}
+
+function main() {
+    // Create the invisible grid for hover effects
+    createInvisibleGrid();
+
+    // Recreate grid on window resize
+    window.addEventListener('resize', createInvisibleGrid);
+
+    updateSecondsLived();
+    setInterval(updateSecondsLived, 1000);
+
+    updateDaysLived();
+    setInterval(updateDaysLived, 86400000);
 
     updateDate();
-    setInterval(updateDate, 86400000); // Update every day
+    setInterval(updateDate, 86400000);
 
     const randomQuote = getRandomQuote();
     document.getElementById("quote").textContent = `"${randomQuote.text}"`;
