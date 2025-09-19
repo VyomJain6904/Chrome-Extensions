@@ -15,16 +15,28 @@
 
             body {
                 font-family: "Inter", sans-serif;
-                background: linear-gradient(135deg, #070b13, #27282b);
-                background-size: cover;
-                background-attachment: fixed;
+                background: linear-gradient(150deg, #1e1e2e, #302d41, #c06fab);
+                background-size: 400% 400%;
+                animation: gradientShift 10s ease infinite;
                 min-height: 100vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 overflow: hidden;
-                color: white;
+                color: #cdd6f4;
                 position: relative;
+            }
+
+            @keyframes gradientShift {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
             }
 
             body::before {
@@ -35,12 +47,12 @@
                 width: 100%;
                 height: 100%;
                 background-image: linear-gradient(
-                        rgba(248, 247, 247, 0.15) 1px,
+                        rgba(255, 255, 255, 0.03) 1px,
                         transparent 1px
                     ),
                     linear-gradient(
                         90deg,
-                        rgba(255, 255, 255, 0.15) 1px,
+                        rgba(255, 255, 255, 0.03) 1px,
                         transparent 1px
                     );
                 background-size: 30px 30px;
@@ -67,14 +79,19 @@
             }
 
             .invisible-grid::before {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 width: 0;
                 height: 0;
-                background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
-                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(207, 110, 181, 0.8) 0%,
+                    rgba(148, 86, 131, 0.3) 50%,
+                    transparent 100%
+                );
+                border-radius: 100%;
                 transform: translate(-50%, -50%);
                 opacity: 0;
                 pointer-events: none;
@@ -111,7 +128,7 @@
                 position: relative;
                 z-index: 1;
                 text-align: center;
-                color: white;
+                color: #cdd6f4;
                 max-width: 800px;
                 padding: 40px;
             }
@@ -120,7 +137,7 @@
                 font-size: 8rem;
                 font-weight: 300;
                 margin-bottom: 20px;
-                text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+                text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
                 animation: pulse 2s ease-in-out infinite;
             }
 
@@ -128,7 +145,7 @@
                 font-size: 4.8rem;
                 font-weight: 300;
                 margin-bottom: 10px;
-                text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+                text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
             }
 
             @keyframes pulse {
@@ -141,15 +158,7 @@
                 }
             }
 
-            .seconds-label {
-                font-size: 1.2rem;
-                opacity: 0.9;
-                margin-bottom: 20px;
-                font-weight: 300;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-
+            .seconds-label,
             .days-label {
                 font-size: 1.2rem;
                 opacity: 0.9;
@@ -160,13 +169,13 @@
             }
 
             .quote-container {
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(24, 24, 37, 0.85);
                 backdrop-filter: blur(10px);
                 border-radius: 20px;
                 padding: 30px;
                 margin: 30px 0;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(177, 84, 152, 0.3);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             }
 
             .quote {
@@ -175,12 +184,14 @@
                 font-style: italic;
                 line-height: 1.6;
                 margin-bottom: 15px;
+                color: #f2cdcd;
             }
 
             .quote-author {
                 font-size: 1rem;
                 opacity: 0.8;
                 font-weight: 500;
+                color: #f5c2e7;
             }
 
             .date-display {
@@ -194,28 +205,22 @@
                 body::before {
                     background-size: 25px 25px;
                 }
-
                 .invisible-grid {
                     width: 25px;
                     height: 25px;
                 }
-
                 .seconds-display {
                     font-size: 3rem;
                 }
-
                 .days-display {
                     font-size: 1.8rem;
                 }
-
                 .date-display {
                     font-size: 1.5rem;
                 }
-
                 .quote {
                     font-size: 1.1rem;
                 }
-
                 .container {
                     width: 100%;
                     max-width: 95vw;
@@ -233,7 +238,7 @@
             <div class="seconds-label">Seconds Lived on Earth</div>
             <br />
             <div class="days-display" id="daysDisplay">0</div>
-            <div class="days-label">days Lived on Earth</div>
+            <div class="days-label">Days Lived on Earth</div>
             <div class="quote-container">
                 <div class="quote" id="quote"></div>
                 <div class="quote-author" id="quoteAuthor"></div>
